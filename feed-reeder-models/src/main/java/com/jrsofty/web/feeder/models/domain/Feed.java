@@ -2,17 +2,23 @@ package com.jrsofty.web.feeder.models.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public abstract class Feed implements Serializable {
 
     /**
      *
      */
     private static final long serialVersionUID = -4427014166275768310L;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
     private String description;
-    private Feed parent = null;
 
     public Long getId() {
         return this.id;
@@ -36,14 +42,6 @@ public abstract class Feed implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Feed getParent() {
-        return this.parent;
-    }
-
-    public void setParent(Feed parent) {
-        this.parent = parent;
     }
 
 }

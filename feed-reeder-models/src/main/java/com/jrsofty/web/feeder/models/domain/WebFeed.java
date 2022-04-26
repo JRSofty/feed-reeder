@@ -2,6 +2,12 @@ package com.jrsofty.web.feeder.models.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "web_feed")
 public class WebFeed extends Feed {
     /**
      *
@@ -15,6 +21,8 @@ public class WebFeed extends Feed {
     private Date lastUpdateFailure;
     private String lastFailureReason;
     private String cronExpression = "0 15 10 * * ?";
+    @Column(name = "parent_id")
+    private GroupFeed parent = null;
 
     public String getHtmlUrl() {
         return this.htmlUrl;
@@ -78,6 +86,14 @@ public class WebFeed extends Feed {
 
     public void setCronExpression(String cronExpression) {
         this.cronExpression = cronExpression;
+    }
+
+    public GroupFeed getParent() {
+        return this.parent;
+    }
+
+    public void setParent(GroupFeed parent) {
+        this.parent = parent;
     }
 
 }
