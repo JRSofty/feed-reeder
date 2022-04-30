@@ -13,12 +13,18 @@ import com.jrsofty.web.feeder.models.domain.GroupFeed;
 import com.jrsofty.web.feeder.models.domain.WebFeed;
 import com.jrsofty.web.feeder.models.domain.exceptions.JRSEngineException;
 import com.jrsofty.web.feeder.models.domain.xml.NodeNameFilter;
+import com.jrsofty.web.feeder.persistence.dao.impl.GroupFeedDAO;
+import com.jrsofty.web.feeder.persistence.dao.impl.WebFeedDAO;
 
 @Component
 public class OpmlBusiness {
 
     @Autowired
     private Engine engine;
+    @Autowired
+    GroupFeedDAO groupsDAO;
+    @Autowired
+    WebFeedDAO feedsDAO;
 
     public void uploadOpml(byte[] contents) throws JRSEngineException {
         final Document opmlDoc = this.engine.generateDocumentFromByte(contents);
