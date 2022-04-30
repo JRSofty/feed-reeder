@@ -3,6 +3,7 @@ package com.jrsofty.web.feeder.models.domain;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -115,6 +116,26 @@ public class WebFeed extends Feed {
 
     public List<FeedItem> getFeeditems() {
         return this.feeditems;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = (prime * result) + Objects.hash(this.feedType, this.feedUrl);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj) || (this.getClass() != obj.getClass())) {
+            return false;
+        }
+        final WebFeed other = (WebFeed) obj;
+        return (this.feedType == other.feedType) && Objects.equals(this.feedUrl, other.feedUrl);
     }
 
 }

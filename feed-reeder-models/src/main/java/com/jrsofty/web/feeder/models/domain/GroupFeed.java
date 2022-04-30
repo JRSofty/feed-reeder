@@ -53,4 +53,23 @@ public class GroupFeed extends Feed {
         return this.childGroups;
     }
 
+    @Override
+    public int hashCode() {
+
+        final int result = super.hashCode();
+        // result = (prime * result) + Objects.hash(this.childGroups);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj) || (this.getClass() != obj.getClass())) {
+            return false;
+        }
+        return true;
+    }
+
 }

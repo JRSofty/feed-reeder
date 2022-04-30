@@ -2,6 +2,7 @@ package com.jrsofty.web.feeder.models.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -91,6 +92,25 @@ public class FeedItem implements Serializable {
 
     public void setViewed(boolean viewed) {
         this.viewed = viewed;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.description, this.linkUrl, this.parent, this.pubDate, this.title);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if ((obj == null) || (this.getClass() != obj.getClass())) {
+            return false;
+        }
+        final FeedItem other = (FeedItem) obj;
+        return Objects.equals(this.description, other.description) && Objects.equals(this.linkUrl, other.linkUrl) && Objects.equals(this.parent, other.parent)
+                && Objects.equals(this.pubDate, other.pubDate)
+                && Objects.equals(this.title, other.title);
     }
 
 }
