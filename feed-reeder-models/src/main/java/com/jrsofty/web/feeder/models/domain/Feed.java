@@ -18,7 +18,7 @@ public abstract class Feed implements Serializable {
      */
     private static final long serialVersionUID = -4427014166275768310L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "title", nullable = false, length = 100)
     private String title;

@@ -1,6 +1,7 @@
 package com.jrsofty.web.feeder.models.domain;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -19,21 +20,37 @@ public class GroupFeed extends Feed {
      */
     private static final long serialVersionUID = 8806542464451784728L;
 
-    @OneToMany(mappedBy = "parent_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final ArrayList<Feed> children = new ArrayList<>();
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<GroupFeed> childGroups = new ArrayList<>();
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<WebFeed> childFeeds = new ArrayList<>();
 
-    public void addChild(Feed feed) {
+    public void addChildGroup(GroupFeed feed) {
         feed.setParent(this);
-        this.children.add(feed);
+        this.childGroups.add(feed);
     }
 
-    public void removeChild(Feed feed) {
-        this.children.remove(feed);
+    public void removeChildGroup(GroupFeed feed) {
+        this.childGroups.remove(feed);
         feed.setParent(null);
     }
 
-    public ArrayList<Feed> getChildren() {
-        return this.children;
+    public void addChildFeed(WebFeed feed) {
+        feed.setParent(this);
+        this.childFeeds.add(feed);
+    }
+
+    public void removeChildFeed(WebFeed feed) {
+        this.childFeeds.remove(feed);
+        feed.setParent(null);
+    }
+
+    public List<WebFeed> getChildFeeds() {
+        return this.childFeeds;
+    }
+
+    public List<GroupFeed> getChildGroups() {
+        return this.childGroups;
     }
 
 }

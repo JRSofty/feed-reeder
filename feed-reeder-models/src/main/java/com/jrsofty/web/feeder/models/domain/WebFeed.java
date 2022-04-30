@@ -2,6 +2,7 @@ package com.jrsofty.web.feeder.models.domain;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -35,8 +36,8 @@ public class WebFeed extends Feed {
     private String lastFailureReason;
     @Column(name = "cron_expression", nullable = false, length = 40)
     private String cronExpression = "0 15 10 * * ?";
-    @OneToMany(mappedBy = "parent_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final ArrayList<FeedItem> feeditems = new ArrayList<>();
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<FeedItem> feeditems = new ArrayList<>();
 
     public String getHtmlUrl() {
         return this.htmlUrl;
@@ -112,7 +113,7 @@ public class WebFeed extends Feed {
         item.setParent(null);
     }
 
-    public ArrayList<FeedItem> getFeeditems() {
+    public List<FeedItem> getFeeditems() {
         return this.feeditems;
     }
 

@@ -21,7 +21,7 @@ public class FeedItem implements Serializable {
      */
     private static final long serialVersionUID = -1793569421386855377L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "parent_id", insertable = false, updatable = false)
