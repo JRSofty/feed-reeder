@@ -19,21 +19,21 @@ public class WebFeed extends Feed {
      *
      */
     private static final long serialVersionUID = 2388357163580158879L;
-    @Column(name = "html_url")
+    @Column(name = "html_url", nullable = true, length = 255)
     private String htmlUrl;
-    @Column(name = "feed_url")
+    @Column(name = "feed_url", nullable = false, length = 255)
     private String feedUrl;
-    @Column(name = "feed_type")
+    @Column(name = "feed_type", nullable = false)
     private FeedType feedType;
-    @Column(name = "last_update_attempt")
+    @Column(name = "last_update_attempt", nullable = true)
     private Date lastUpdateAttempt;
-    @Column(name = "last_update_success")
+    @Column(name = "last_update_success", nullable = true)
     private Date lastUpdateSuccess;
-    @Column(name = "last_update_failure")
+    @Column(name = "last_update_failure", nullable = true)
     private Date lastUpdateFailure;
-    @Column(name = "last_failure_reason")
+    @Column(name = "last_failure_reason", nullable = true, length = 255)
     private String lastFailureReason;
-    @Column(name = "cron_expression")
+    @Column(name = "cron_expression", nullable = false, length = 40)
     private String cronExpression = "0 15 10 * * ?";
     @OneToMany(mappedBy = "parent_id", cascade = CascadeType.ALL, orphanRemoval = true)
     private final ArrayList<FeedItem> feeditems = new ArrayList<>();

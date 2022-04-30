@@ -26,12 +26,15 @@ public class FeedItem implements Serializable {
     @ManyToOne
     @JoinColumn(name = "parent_id", insertable = false, updatable = false)
     private WebFeed parent;
-    @Column(name = "link_url")
+    @Column(name = "link_url", nullable = false, length = 255)
     private String linkUrl;
+    @Column(name = "title", nullable = false, length = 100)
     private String title;
-    @Column(name = "pub_date")
+    @Column(name = "pub_date", nullable = false)
     private Date pubDate;
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
+    @Column(name = "viewed", nullable = false)
     private boolean viewed = false;
 
     public Long getId() {
