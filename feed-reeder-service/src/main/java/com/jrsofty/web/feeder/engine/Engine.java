@@ -35,7 +35,7 @@ public class Engine {
 
     public Document generateDocumentFromInputStream(InputStream is) throws JRSEngineException {
         try {
-            final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance("net.sf.saxon.om.DocumentBuilderFactoryImpl", this.getClass().getClassLoader());
+            final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             final DocumentBuilder builder = factory.newDocumentBuilder();
             return builder.parse(is);
         } catch (final ParserConfigurationException | SAXException | IOException e) {
