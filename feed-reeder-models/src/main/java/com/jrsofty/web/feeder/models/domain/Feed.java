@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
@@ -19,6 +21,9 @@ public abstract class Feed implements Serializable {
     private Long id;
     private String title;
     private String description;
+    @ManyToOne
+    @JoinColumn(name = "parent_id", insertable = false, updatable = false)
+    private GroupFeed parent;
 
     public Long getId() {
         return this.id;
@@ -42,6 +47,14 @@ public abstract class Feed implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setParent(GroupFeed parent) {
+        this.parent = parent;
+    }
+
+    public GroupFeed getParent() {
+        return this.parent;
     }
 
 }

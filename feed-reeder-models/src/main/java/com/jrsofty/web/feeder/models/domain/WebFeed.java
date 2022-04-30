@@ -1,28 +1,42 @@
 package com.jrsofty.web.feeder.models.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "web_feed")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class WebFeed extends Feed {
     /**
      *
      */
     private static final long serialVersionUID = 2388357163580158879L;
+    @Column(name = "html_url")
     private String htmlUrl;
+    @Column(name = "feed_url")
     private String feedUrl;
+    @Column(name = "feed_type")
     private FeedType feedType;
+    @Column(name = "last_update_attempt")
     private Date lastUpdateAttempt;
+    @Column(name = "last_update_success")
     private Date lastUpdateSuccess;
+    @Column(name = "last_update_failure")
     private Date lastUpdateFailure;
+    @Column(name = "last_failure_reason")
     private String lastFailureReason;
+    @Column(name = "cron_expression")
     private String cronExpression = "0 15 10 * * ?";
-    @Column(name = "parent_id")
-    private GroupFeed parent = null;
+    @OneToMany(mappedBy = "parent_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final ArrayList<FeedItem> feeditems = new ArrayList<>();
 
     public String getHtmlUrl() {
         return this.htmlUrl;
@@ -88,12 +102,18 @@ public class WebFeed extends Feed {
         this.cronExpression = cronExpression;
     }
 
-    public GroupFeed getParent() {
-        return this.parent;
+    public void addFeeditem(FeedItem item) {
+        item.setParent(this);
+        this.feeditems.add(item);
     }
 
-    public void setParent(GroupFeed parent) {
-        this.parent = parent;
+    public void removeFeeditem(FeedItem item) {
+        this.feeditems.remove(item);
+        item.setParent(null);
+    }
+
+    public ArrayList<FeedItem> getFeeditems() {
+        return this.feeditems;
     }
 
 }

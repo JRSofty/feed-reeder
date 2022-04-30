@@ -3,16 +3,33 @@ package com.jrsofty.web.feeder.models.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity()
+@Table(name = "feed_item")
 public class FeedItem implements Serializable {
 
     /**
      *
      */
     private static final long serialVersionUID = -1793569421386855377L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @ManyToOne
+    @JoinColumn(name = "parent_id", insertable = false, updatable = false)
     private WebFeed parent;
+    @Column(name = "link_url")
     private String linkUrl;
     private String title;
+    @Column(name = "pub_date")
     private Date pubDate;
     private String description;
     private boolean viewed = false;
