@@ -2,6 +2,7 @@ package com.jrsofty.web.feeder.models.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +20,9 @@ public abstract class Feed implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "title", nullable = false, length = 100)
     private String title;
+    @Column(name = "description", nullable = true, length = 255)
     private String description;
     @ManyToOne
     @JoinColumn(name = "parent_id", insertable = false, updatable = false)
