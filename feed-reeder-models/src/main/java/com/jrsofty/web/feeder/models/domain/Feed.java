@@ -26,7 +26,7 @@ public abstract class Feed implements Serializable {
     @Column(name = "description", nullable = true, length = 255)
     private String description;
     @ManyToOne
-    @JoinColumn(name = "parent_id", insertable = false, updatable = false)
+    @JoinColumn(name = "parent_id")
     private GroupFeed parent;
 
     public Long getId() {
