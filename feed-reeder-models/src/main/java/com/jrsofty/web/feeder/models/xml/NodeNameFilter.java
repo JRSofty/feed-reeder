@@ -1,4 +1,4 @@
-package com.jrsofty.web.feeder.models.domain.xml;
+package com.jrsofty.web.feeder.models.xml;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.traversal.NodeFilter;
