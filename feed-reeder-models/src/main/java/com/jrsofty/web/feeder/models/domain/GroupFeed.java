@@ -26,8 +26,8 @@ public class GroupFeed extends Feed {
     private final List<WebFeed> childFeeds = new ArrayList<>();
 
     public void addChildGroup(GroupFeed feed) {
-        feed.setParent(this);
         this.childGroups.add(feed);
+        feed.setParent(this);
     }
 
     public void removeChildGroup(GroupFeed feed) {
@@ -36,8 +36,8 @@ public class GroupFeed extends Feed {
     }
 
     public void addChildFeed(WebFeed feed) {
-        feed.setParent(this);
         this.childFeeds.add(feed);
+        feed.setParent(this);
     }
 
     public void removeChildFeed(WebFeed feed) {
