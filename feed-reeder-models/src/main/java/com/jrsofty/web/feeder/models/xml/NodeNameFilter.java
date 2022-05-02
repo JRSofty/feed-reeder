@@ -20,14 +20,22 @@ public class NodeNameFilter implements NodeFilter {
 
     @Override
     public short acceptNode(Node n) {
-        if (this.attribute != null) {
-            final NamedNodeMap attr = n.getAttributes();
-            if ((n.getNodeName().equals(this.nodeName) && (attr != null)) && (attr.getNamedItem(this.attribute) != null)) {
-                return NodeFilter.FILTER_ACCEPT;
+        if (n.getNodeName().equals(this.nodeName)) {
+            if (this.attribute != null) {
+                final NamedNodeMap attr = n.getAttributes();
+                if (attr != null) {
+                    if (attr.getNamedItem(this.attribute) != null) {
+                    }
+                } else {
+                    // No attributes means the one we want is not there so
+                    // reject
+                    return NodeFilter.FILTER_REJECT;
+                }
             }
-        } else if (n.getNodeName().equals(this.nodeName)) {
+            // No attribute search is needed but name matches
             return NodeFilter.FILTER_ACCEPT;
         }
+        // Node name does not match
         return NodeFilter.FILTER_REJECT;
 
     }

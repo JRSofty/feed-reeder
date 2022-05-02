@@ -2,11 +2,11 @@
 <opml version="1.1">
 	<head>
 		<title><![CDATA[Feedreader 3.14 (Powered by Newsbrain)]]></title>
-		<dateCreated>Sun, 24 Apr 2022 18:57:05 +0200</dateCreated>
+		<dateCreated>Sun, 1 May 2022 09:42:11 +0200</dateCreated>
 	</head>
 	<body>
+		<outline text="xkcd" title="xkcd" xmlUrl="https://xkcd.com/rss.xml" htmlUrl="" type="rss"/>
 		<outline text="Comics">
-			<outline text="xkcd" title="xkcd" xmlUrl="https://xkcd.com/rss.xml" htmlUrl="" type="rss"/>
 			<outline text="Least I Could Do" title="Least I Could Do" xmlUrl="http://feeds.feedburner.com/LICD" htmlUrl="https://leasticoulddo.com" type="rss"/>
 			<outline text="LFG RSS Feed" title="LFG RSS Feed" xmlUrl="http://feeds.feedburner.com/LookingForGroup" htmlUrl="https://www.lfg.co" type="rss"/>
 			<outline text="PvPonline" title="PvPonline" xmlUrl="http://pvponline.com/feed" htmlUrl="http://pvponline.com/" type="rss"/>
@@ -36,8 +36,10 @@
 		</outline>
 		<outline text="Open Source">
 			<outline text="Slashdot" title="Slashdot" xmlUrl="http://rss.slashdot.org/Slashdot/slashdot" htmlUrl="https://slashdot.org/" type="rss"/>
-			<outline text="BBC" title="BBC" xmlUrl="http://feeds.bbci.co.uk/news/rss.xml?edition=int" htmlUrl="https://www.bbc.co.uk/news/" type="rss"/>
-			<outline text="tagesschau.de - Die Nachrichten der ARD" title="tagesschau.de - Die Nachrichten der ARD" xmlUrl="https://www.tagesschau.de/xml/rss2/" htmlUrl="https://www.tagesschau.de" type="rss"/>
+			<outline text="Actual">
+				<outline text="BBC" title="BBC" xmlUrl="http://feeds.bbci.co.uk/news/rss.xml?edition=int" htmlUrl="https://www.bbc.co.uk/news/" type="rss"/>
+				<outline text="tagesschau.de - Die Nachrichten der ARD" title="tagesschau.de - Die Nachrichten der ARD" xmlUrl="https://www.tagesschau.de/xml/rss2/" htmlUrl="https://www.tagesschau.de" type="rss"/>
+			</outline>
 		</outline>
 		<outline text="Tech News">
 			<outline text="Ars Technica" title="Ars Technica" xmlUrl="http://feeds.arstechnica.com/arstechnica/index" htmlUrl="https://arstechnica.com" type="rss"/>

@@ -32,4 +32,32 @@ public class GroupFeedDAO extends AbstractGenericDAO<GroupFeed> {
         return query.getResultList();
     }
 
+    @Transactional(readOnly = true)
+    public GroupFeed findByNameAndParent(GroupFeed parent, String name) {
+        TypedQuery<GroupFeed> query;
+        if (parent == null) {
+            query = this.em.createQuery("SELECT gf FROM GroupFeed gf WHERE gf.title = :name AND gf.parent IS NULL", GroupFeed.class);
+            query.setParameter("name", name);
+        } else {
+            query = this.em.createQuery("SELECT gf FROM GroupFeed gf WHERE gf.title = :name AND gf.parent = :parent", GroupFeed.class);
+            query.setParameter("name", name);
+            query.setParameter("parent", parent);
+        }
+
+        return query.getSingleResult();
+    }
+
+    @Transactional(readOnly = true)
+    public boolean alreadyExists(GroupFeed feed) {
+        final TypedQuery<Long> query = this.em.createQuery("SELECT COUNT(gf) FROM GroupFeed gf WHERE gf.title = :title AND gf.parent = :parent", Long.class);
+        query.setParameter("title", feed.getTitle());
+        query.setParameter("parent", feed.getParent());
+        final Long cnt = query.getSingleResult();
+        boolean result = false;
+        if (cnt != 0) {
+            result = true;
+        }
+        return result;
+    }
+
 }

@@ -10,9 +10,11 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.w3c.dom.traversal.DocumentTraversal;
 import org.w3c.dom.traversal.NodeFilter;
 import org.w3c.dom.traversal.NodeIterator;
+import org.w3c.dom.traversal.TreeWalker;
 import org.xml.sax.SAXException;
 
 import com.jrsofty.web.feeder.models.domain.exceptions.JRSEngineException;
@@ -43,10 +45,28 @@ public class Engine {
         }
     }
 
-    public NodeIterator filterDocument(Document document, NodeFilter filter) {
-        final DocumentTraversal trav = (DocumentTraversal) document;
-        final NodeIterator itr = trav.createNodeIterator(document.getDocumentElement(), NodeFilter.SHOW_ALL, filter, true);
+    public NodeIterator filterDocument(Node node, NodeFilter filter) {
+        Document doc;
+        if (node instanceof Document) {
+            doc = (Document) node;
+        } else {
+            doc = node.getOwnerDocument();
+        }
+        final DocumentTraversal trav = (DocumentTraversal) doc;
+        final NodeIterator itr = trav.createNodeIterator(node, NodeFilter.SHOW_ALL, filter, true);
         return itr;
+    }
+
+    public TreeWalker treeWalkDocument(Node node, NodeFilter filter) {
+        Document doc;
+        if (node instanceof Document) {
+            doc = (Document) node;
+        } else {
+            doc = node.getOwnerDocument();
+        }
+
+        final DocumentTraversal trav = (DocumentTraversal) doc;
+        return trav.createTreeWalker(node, NodeFilter.SHOW_ALL, filter, true);
     }
 
 }

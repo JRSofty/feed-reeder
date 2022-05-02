@@ -34,4 +34,16 @@ public class WebFeedDAO extends AbstractGenericDAO<WebFeed> {
         return query.getResultList();
     }
 
+    public boolean alreadyExists(WebFeed feed) {
+        final TypedQuery<Long> query = this.em.createQuery("SELECT COUNT(wf) FROM WebFeed wf WHERE wf.title = :title AND wf.feedUrl = :url", Long.class);
+        query.setParameter("title", feed.getTitle());
+        query.setParameter("url", feed.getFeedUrl());
+        final Long cnt = query.getSingleResult();
+        boolean result = false;
+        if (cnt != 0) {
+            result = true;
+        }
+        return result;
+    }
+
 }
