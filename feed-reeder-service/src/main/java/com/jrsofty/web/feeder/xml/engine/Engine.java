@@ -1,4 +1,4 @@
-package com.jrsofty.web.feeder.engine;
+package com.jrsofty.web.feeder.xml.engine;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

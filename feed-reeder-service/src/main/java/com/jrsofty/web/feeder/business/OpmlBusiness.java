@@ -8,7 +8,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.traversal.NodeIterator;
 
-import com.jrsofty.web.feeder.engine.Engine;
 import com.jrsofty.web.feeder.models.domain.FeedType;
 import com.jrsofty.web.feeder.models.domain.GroupFeed;
 import com.jrsofty.web.feeder.models.domain.WebFeed;
@@ -16,6 +15,7 @@ import com.jrsofty.web.feeder.models.domain.exceptions.JRSEngineException;
 import com.jrsofty.web.feeder.models.xml.NodeNameFilter;
 import com.jrsofty.web.feeder.persistence.dao.impl.GroupFeedDAO;
 import com.jrsofty.web.feeder.persistence.dao.impl.WebFeedDAO;
+import com.jrsofty.web.feeder.xml.engine.Engine;
 
 @Component
 @Transactional
