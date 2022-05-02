@@ -25,7 +25,7 @@ public class FeedItem implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "parent_id", insertable = false, updatable = false)
+    @JoinColumn(name = "parent_id", insertable = true, updatable = false)
     private WebFeed parent;
     @Column(name = "link_url", nullable = false, length = 255)
     private String linkUrl;
