@@ -8,17 +8,22 @@ import org.quartz.CronTrigger;
 import org.quartz.Job;
 import org.quartz.JobDetail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
 import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.scheduling.quartz.SpringBeanJobFactory;
 
 import com.jrsofty.web.feeder.models.domain.WebFeed;
+import com.jrsofty.web.feeder.services.scheduler.SchedulerService;
 
 @Configuration
+@EnableScheduling
 public class SchedulerServiceConfig {
 
     @Autowired
@@ -45,11 +50,17 @@ public class SchedulerServiceConfig {
         schedulerFactory.setQuartzProperties(properties);
         schedulerFactory.setJobFactory(this.springBeanJobFactory());
         schedulerFactory.setWaitForJobsToCompleteOnShutdown(true);
-
+        schedulerFactory.start();
         return schedulerFactory;
     }
 
-    static CronTriggerFactoryBean createCronTrigger(JobDetail job, String cronExpression, String triggerName) {
+    @Bean
+    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+    public SchedulerService getSchedulerService() {
+        return new SchedulerService();
+    }
+
+    public static CronTriggerFactoryBean createCronTrigger(JobDetail job, String cronExpression, String triggerName) {
         final Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
@@ -66,7 +77,7 @@ public class SchedulerServiceConfig {
 
     }
 
-    static JobDetailFactoryBean createJobDetail(Class<? extends Job> jobClass, WebFeed feed) {
+    public static JobDetailFactoryBean createJobDetail(Class<? extends Job> jobClass, WebFeed feed) {
         final JobDetailFactoryBean factoryBean = new JobDetailFactoryBean();
         factoryBean.setJobClass(jobClass);
         factoryBean.setName(feed.getTitle());
