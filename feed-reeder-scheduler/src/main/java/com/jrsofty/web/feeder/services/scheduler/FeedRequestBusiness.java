@@ -1,4 +1,4 @@
-package com.jrsofty.web.feeder.services;
+package com.jrsofty.web.feeder.services.scheduler;
 
 import javax.transaction.Transactional;
 
