@@ -1,5 +1,6 @@
 package com.jrsofty.web.feeder.services.spring;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Properties;
@@ -54,13 +55,13 @@ public class SchedulerServiceConfig {
         return schedulerFactory;
     }
 
-    @Bean
+    @Bean(initMethod = "initFeeds")
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
     public SchedulerService getSchedulerService() {
         return new SchedulerService();
     }
 
-    public static CronTriggerFactoryBean createCronTrigger(JobDetail job, String cronExpression, String triggerName) {
+    public static CronTriggerFactoryBean createCronTrigger(JobDetail job, String cronExpression, String triggerName) throws ParseException {
         final Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
@@ -72,7 +73,7 @@ public class SchedulerServiceConfig {
         factory.setJobDetail(job);
         factory.setStartDelay(0L);
         factory.setMisfireInstruction(CronTrigger.MISFIRE_INSTRUCTION_DO_NOTHING);
-
+        factory.afterPropertiesSet();
         return factory;
 
     }
@@ -85,7 +86,7 @@ public class SchedulerServiceConfig {
         dataMap.put("id", feed.getId());
         factoryBean.setDurability(false);
         factoryBean.setJobDataAsMap(dataMap);
-
+        factoryBean.afterPropertiesSet();
         return factoryBean;
     }
 
