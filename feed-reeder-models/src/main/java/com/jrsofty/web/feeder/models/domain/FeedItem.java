@@ -32,11 +32,13 @@ public class FeedItem implements Serializable {
     @Column(name = "title", nullable = false, length = 100)
     private String title;
     @Column(name = "pub_date", nullable = false)
-    private Date pubDate;
+    private String pubDate;
     @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
     @Column(name = "viewed", nullable = false)
     private boolean viewed = false;
+    @Column(name = "received")
+    private Date received;
 
     public Long getId() {
         return this.id;
@@ -70,11 +72,11 @@ public class FeedItem implements Serializable {
         this.title = title;
     }
 
-    public Date getPubDate() {
+    public String getPubDate() {
         return this.pubDate;
     }
 
-    public void setPubDate(Date pubDate) {
+    public void setPubDate(String pubDate) {
         this.pubDate = pubDate;
     }
 
@@ -92,6 +94,14 @@ public class FeedItem implements Serializable {
 
     public void setViewed(boolean viewed) {
         this.viewed = viewed;
+    }
+
+    public void setReceived(Date received) {
+        this.received = received;
+    }
+
+    public Date getReceived() {
+        return this.received;
     }
 
     @Override

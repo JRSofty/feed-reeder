@@ -27,7 +27,8 @@ CREATE TABLE `feed_item`(
 	`title` VARCHAR(100) NOT NULL,
 	`parent_id` BIGINT(20) NOT NULL,
 	`link_url` VARCHAR(255) NOT NULL,
-	`pub_date` DATETIME NOT NULL,
+	`pub_date` VARCHAR(100) NOT NULL,
+	`received` DATETIME NULL,
 	`description` TEXT NOT NULL,
 	`viewed` TINYINT(2) NOT NULL,
 	CONSTRAINT `fk_fi_pid` FOREIGN KEY (parent_id) REFERENCES web_feed (id)
