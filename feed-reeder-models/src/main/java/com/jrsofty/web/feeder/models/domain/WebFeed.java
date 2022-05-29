@@ -39,7 +39,7 @@ public class WebFeed extends Feed {
     @Column(name = "last_failure_reason", nullable = true, length = 255)
     private String lastFailureReason;
     @Column(name = "cron_expression", nullable = false, length = 40)
-    private String cronExpression = "0 15 10 * * ?";
+    private String cronExpression = "0 0 */2 ? * *";
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<FeedItem> feeditems = new ArrayList<>();
 
