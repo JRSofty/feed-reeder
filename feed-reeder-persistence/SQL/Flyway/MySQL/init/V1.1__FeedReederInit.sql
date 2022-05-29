@@ -13,7 +13,7 @@ CREATE TABLE `web_feed`(
 	`parent_id` BIGINT(20),
 	`html_url` VARCHAR(255),
 	`feed_url` VARCHAR(255) NOT NULL,
-	`feed_type` INT(5) NOT NULL,
+	`feed_type` VARCHAR(10) NOT NULL,
 	`last_update_attempt` DATETIME,
 	`last_update_success` DATETIME,
 	`last_update_failure` DATETIME,

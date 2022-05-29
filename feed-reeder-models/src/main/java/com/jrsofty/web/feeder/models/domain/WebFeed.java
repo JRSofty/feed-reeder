@@ -8,6 +8,8 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
@@ -26,6 +28,7 @@ public class WebFeed extends Feed {
     @Column(name = "feed_url", nullable = false, length = 255)
     private String feedUrl;
     @Column(name = "feed_type", nullable = false)
+    @Enumerated(EnumType.STRING)
     private FeedType feedType;
     @Column(name = "last_update_attempt", nullable = true)
     private Date lastUpdateAttempt;
