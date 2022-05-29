@@ -2,9 +2,9 @@ package com.jrsofty.web.feeder.server.rest;
 
 import java.io.IOException;
 
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jrsofty.web.feeder.business.OpmlBusiness;
+import com.jrsofty.web.feeder.commons.logging.LogUtil;
 import com.jrsofty.web.feeder.models.domain.StandardRestResponse;
 import com.jrsofty.web.feeder.models.domain.exceptions.JRSEngineException;
 
@@ -20,13 +21,19 @@ import com.jrsofty.web.feeder.models.domain.exceptions.JRSEngineException;
 @RequestMapping("/opml")
 public class OpmlRestController {
 
+    private static Logger LOGGER = LogUtil.getLogger(OpmlRestController.class);
+
     @Autowired
     private OpmlBusiness business;
 
-    @GetMapping("")
-    public StandardRestResponse opmlAvailable() {
-        return new StandardRestResponse("Available", 200);
+    public OpmlRestController() {
+        OpmlRestController.LOGGER.debug("Opml RESTful Endpoint available");
     }
+
+    // @GetMapping("")
+    // public StandardRestResponse opmlAvailable() {
+    // return new StandardRestResponse("Available", 200);
+    // }
 
     @Transactional
     @PostMapping("/upload")
@@ -38,6 +45,7 @@ public class OpmlRestController {
             }
             this.business.uploadOpml(file.getBytes());
         } catch (JRSEngineException | IOException e) {
+            OpmlRestController.LOGGER.error("Failure to process upload", e);
             return new StandardRestResponse("Failed upload", 500);
         }
 
