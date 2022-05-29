@@ -13,6 +13,7 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
 
 import com.jrsofty.web.feeder.models.domain.WebFeed;
+import com.jrsofty.web.feeder.models.job.FeedRequestInterface;
 import com.jrsofty.web.feeder.models.job.FeedRequestJob;
 import com.jrsofty.web.feeder.persistence.dao.impl.WebFeedDAO;
 import com.jrsofty.web.feeder.services.spring.SchedulerServiceConfig;
@@ -29,6 +30,9 @@ public class SchedulerService {
     @Autowired
     WebFeedDAO feedDao;
 
+    @Autowired
+    FeedRequestInterface feedRequest;
+
     Scheduler scheduler;
 
     public SchedulerService() {
@@ -44,6 +48,8 @@ public class SchedulerService {
         for (final WebFeed feed : feeds) {
             try {
                 this.scheduleFeed(feed);
+                final String data = this.feedRequest.getRequestFeedData(feed.getId());
+                this.feedRequest.processFeedData(data, feed.getId());
             } catch (final Exception e) {
                 e.printStackTrace(System.out);
             }
