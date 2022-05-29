@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+
+	<Properties>
+		<Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} %p [%t] %c : %m%n%ex</Property>
+		<Property name="LOG_DIR">./feeder/logs</Property>
+	</Properties>
+
+	<Appenders>
+		<Console name="CONSOLE" target="SYSTEM_OUT">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+		</Console>
+		<RollingFile name="FILE" filename="${LOG_DIR}/app.log"
+			filePattern="${LOG_DIR}/archive/app-%d{yyyy.MM.dd}.log.gz">
+			<PatternLayout>%d{yyyy-MM-dd HH:mm:ss.SSS} %p [%t] %c : %m%n%ex</PatternLayout>
+			<TimeBasedTriggeringPolicy />
+		</RollingFile>
+		<RollingFile name="REST" filename="${LOG_DIR}/rest.log" filePattern="${LOG_DIR}/archive/rest-%d{yyyy.MM.dd}.log.gz">
+			<PatternLayout>%d{yyyy-MM-dd HH:mm:ss.SSS} %p [%t] %c : %m%n%ex</PatternLayout>
+			<TimeBasedTriggeringPolicy />
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+		<Logger name="com.jrsofty.web.feeder.server.rest" additivity="false">
+			<AppenderRef ref="REST" />
+		</Logger>
+		<Logger name="com.jrsofty.web" level="debug">
+			<AppenderRef ref="FILE" />
+		</Logger>
+		<Root level="error">
+			<AppenderRef ref="CONSOLE" />
+		</Root>
+	</Loggers>
+
+</Configuration>
