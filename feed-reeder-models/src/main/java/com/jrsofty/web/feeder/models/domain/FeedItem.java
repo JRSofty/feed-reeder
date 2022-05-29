@@ -106,7 +106,7 @@ public class FeedItem implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.description, this.linkUrl, this.parent, this.pubDate, this.title);
+        return Objects.hash(this.description, this.linkUrl, this.pubDate, this.title);
     }
 
     @Override
@@ -118,9 +118,11 @@ public class FeedItem implements Serializable {
             return false;
         }
         final FeedItem other = (FeedItem) obj;
-        return Objects.equals(this.description, other.description) && Objects.equals(this.linkUrl, other.linkUrl) && Objects.equals(this.parent, other.parent)
+
+        final boolean result = Objects.equals(this.description, other.description) && Objects.equals(this.linkUrl, other.linkUrl)
                 && Objects.equals(this.pubDate, other.pubDate)
                 && Objects.equals(this.title, other.title);
+        return result;
     }
 
 }
