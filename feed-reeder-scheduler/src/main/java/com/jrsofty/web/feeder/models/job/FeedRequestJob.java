@@ -15,7 +15,7 @@ public class FeedRequestJob implements Job {
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         final long id = context.getMergedJobDataMap().getLong("id");
-        this.feedRequestBusiness.processFeedData(this.feedRequestBusiness.getRequestFeedData(id));
+        this.feedRequestBusiness.processFeedData(this.feedRequestBusiness.getRequestFeedData(id), id);
     }
 
 }

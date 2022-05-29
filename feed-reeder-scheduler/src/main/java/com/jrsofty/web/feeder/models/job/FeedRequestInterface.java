@@ -4,6 +4,6 @@ public interface FeedRequestInterface {
 
     String getRequestFeedData(long id);
 
-    void processFeedData(String data);
+    void processFeedData(String data, long feedId);
 
 }
