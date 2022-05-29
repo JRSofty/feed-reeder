@@ -63,7 +63,7 @@ public abstract class Feed implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.parent, this.title);
+        return Objects.hash(this.title);
     }
 
     @Override
@@ -75,7 +75,7 @@ public abstract class Feed implements Serializable {
             return false;
         }
         final Feed other = (Feed) obj;
-        return Objects.equals(this.parent, other.parent) && Objects.equals(this.title, other.title);
+        return Objects.equals(this.title, other.title);
     }
 
 }
