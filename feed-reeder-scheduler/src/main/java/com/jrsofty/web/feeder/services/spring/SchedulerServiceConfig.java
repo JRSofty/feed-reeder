@@ -58,7 +58,7 @@ public class SchedulerServiceConfig {
     @Bean(initMethod = "initFeeds")
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
     public SchedulerService getSchedulerService() {
-        return new SchedulerService();
+        return (SchedulerService) this.ctx.getBean("SchedulerService");
     }
 
     public static CronTriggerFactoryBean createCronTrigger(JobDetail job, String cronExpression, String triggerName) throws ParseException {

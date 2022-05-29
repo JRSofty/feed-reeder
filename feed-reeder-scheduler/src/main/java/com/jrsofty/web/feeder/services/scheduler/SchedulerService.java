@@ -34,7 +34,7 @@ public class SchedulerService {
     public SchedulerService() {
         SchedulerService.instanceCount++;
         if (SchedulerService.instanceCount > 1) {
-            System.out.println("It should only have once instance!!");
+            throw new RuntimeException("There should only be one instance of SchedulerService you are trying to create " + SchedulerService.instanceCount);
         }
 
     }
