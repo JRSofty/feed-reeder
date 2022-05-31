@@ -1,5 +1,6 @@
 package com.jrsofty.web.feeder.persistence.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jrsofty.web.feeder.models.domain.GroupFeed;
+import com.jrsofty.web.feeder.models.domain.tree.TreeItem;
 
 @Repository("GroupFeed")
 @Transactional
@@ -30,6 +32,31 @@ public class GroupFeedDAO extends AbstractGenericDAO<GroupFeed> {
     public List<GroupFeed> findAll() {
         final TypedQuery<GroupFeed> query = this.em.createQuery("SELECT gf FROM GroupFeed gf", GroupFeed.class);
         return query.getResultList();
+    }
+
+    @Transactional(readOnly = true)
+    public TreeItem findAsTreeItem(long id) {
+        final GroupFeed feed = this.findById(id);
+        return new TreeItem(feed);
+    }
+
+    @Transactional(readOnly = true)
+    public List<TreeItem> findChildTreeItems(long id) {
+        final List<GroupFeed> feeds = this.findByParentId(id);
+        final ArrayList<TreeItem> results = new ArrayList<>();
+        for (final GroupFeed feed : feeds) {
+            final TreeItem item = new TreeItem(feed);
+            results.add(item);
+        }
+        return results;
+    }
+
+    @Transactional(readOnly = true)
+    public List<GroupFeed> findByParentId(long id) {
+        final TypedQuery<GroupFeed> query = this.em.createQuery("SELECT gf FROM GroupFeed gf WHERE gf.parent.id = :id", GroupFeed.class);
+        query.setParameter("id", id);
+        return query.getResultList();
+
     }
 
     @Transactional(readOnly = true)
