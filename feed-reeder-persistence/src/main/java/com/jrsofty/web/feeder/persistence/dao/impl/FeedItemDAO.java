@@ -34,4 +34,11 @@ public class FeedItemDAO extends AbstractGenericDAO<FeedItem> {
         return query.getResultList();
     }
 
+    @Transactional(readOnly = true)
+    public List<FeedItem> findItemsByParentId(long id) {
+        final TypedQuery<FeedItem> query = this.em.createQuery("SELECT fi FROM FeedItem fi WHERE fi.parent.id = :id ORDER BY fi.pubDate", FeedItem.class);
+        query.setParameter("id", id);
+        return query.getResultList();
+    }
+
 }
