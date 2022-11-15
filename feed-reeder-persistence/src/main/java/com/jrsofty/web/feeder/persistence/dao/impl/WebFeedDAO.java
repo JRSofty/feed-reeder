@@ -61,6 +61,7 @@ public class WebFeedDAO extends AbstractGenericDAO<WebFeed> {
     @Transactional(readOnly = true)
     public List<WebFeed> findByParentId(Long id) {
         final TypedQuery<WebFeed> query = this.em.createQuery("SELECT wf FROM WebFeed wf WHERE wf.parent.id = :id", WebFeed.class);
+        query.setParameter("id", id);
         return query.getResultList();
     }
 
