@@ -3,7 +3,9 @@ package com.jrsofty.web.feeder.models.domain.tree;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Objects;
 
+import com.jrsofty.web.feeder.models.domain.FeedItem;
 import com.jrsofty.web.feeder.models.domain.GroupFeed;
 import com.jrsofty.web.feeder.models.domain.WebFeed;
 
@@ -17,7 +19,7 @@ public class TreeItem implements Serializable {
     private Long parentId = null;
     private String title;
     private HashSet<TreeItem> children = new HashSet<>();
-    private TreeItemType itemType = TreeItemType.WEBFEED;
+    private TreeItemType itemType = TreeItemType.WEB_FEED;
     private final HashMap<String, String> properties = new HashMap<>();
 
     public TreeItem() {
@@ -25,7 +27,7 @@ public class TreeItem implements Serializable {
     }
 
     public TreeItem(GroupFeed group) {
-        this.itemType = TreeItemType.GROUPFEED;
+        this.itemType = TreeItemType.GROUP_FEED;
         this.id = group.getId();
         if (group.getParent() != null) {
             this.parentId = group.getParent().getId();
@@ -39,6 +41,13 @@ public class TreeItem implements Serializable {
             this.parentId = webFeed.getParent().getId();
         }
         this.title = webFeed.getTitle();
+    }
+
+    public TreeItem(FeedItem feedItem) {
+        this.id = feedItem.getId();
+        this.title = feedItem.getTitle();
+        this.parentId = feedItem.getParent().getId();
+        this.itemType = TreeItemType.FEED_ITEM;
     }
 
     public long getId() {
@@ -91,6 +100,23 @@ public class TreeItem implements Serializable {
 
     public String getProperty(String property) {
         return this.properties.get(property);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.id, this.itemType, this.parentId, this.title);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if ((null == obj) || (this.getClass() != obj.getClass())) {
+            return false;
+        }
+        final TreeItem other = (TreeItem) obj;
+        return (this.id == other.id) && (this.itemType == other.itemType) && Objects.equals(this.parentId, other.parentId) && Objects.equals(this.title, other.title);
     }
 
 }
