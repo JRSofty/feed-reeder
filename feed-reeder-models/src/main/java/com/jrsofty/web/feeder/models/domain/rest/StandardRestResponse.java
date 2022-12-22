@@ -1,4 +1,4 @@
-package com.jrsofty.web.feeder.models.domain;
+package com.jrsofty.web.feeder.models.domain.rest;
 
 public class StandardRestResponse {
 
