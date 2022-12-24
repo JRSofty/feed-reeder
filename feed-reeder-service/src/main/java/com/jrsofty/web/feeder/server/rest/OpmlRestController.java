@@ -13,8 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.jrsofty.web.feeder.business.OpmlBusiness;
 import com.jrsofty.web.feeder.commons.logging.LogUtil;
-import com.jrsofty.web.feeder.models.domain.StandardRestResponse;
 import com.jrsofty.web.feeder.models.domain.exceptions.JRSEngineException;
+import com.jrsofty.web.feeder.models.domain.rest.StandardRestResponse;
 
 @Transactional
 @RestController

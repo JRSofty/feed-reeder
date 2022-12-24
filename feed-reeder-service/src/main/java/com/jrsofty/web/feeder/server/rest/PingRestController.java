@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jrsofty.web.feeder.commons.logging.LogUtil;
-import com.jrsofty.web.feeder.models.domain.StandardRestResponse;
+import com.jrsofty.web.feeder.models.domain.rest.StandardRestResponse;
 
 @RestController
 @RequestMapping("/ping")
