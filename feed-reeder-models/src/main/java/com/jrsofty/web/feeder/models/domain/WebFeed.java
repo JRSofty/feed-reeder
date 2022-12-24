@@ -47,7 +47,7 @@ public class WebFeed extends Feed {
         return this.htmlUrl;
     }
 
-    public void setHtmlUrl(String htmlUrl) {
+    public void setHtmlUrl(final String htmlUrl) {
         this.htmlUrl = htmlUrl;
     }
 
@@ -55,7 +55,7 @@ public class WebFeed extends Feed {
         return this.feedUrl;
     }
 
-    public void setFeedUrl(String feedUrl) {
+    public void setFeedUrl(final String feedUrl) {
         this.feedUrl = feedUrl;
     }
 
@@ -63,7 +63,7 @@ public class WebFeed extends Feed {
         return this.feedType;
     }
 
-    public void setFeedType(FeedType feedType) {
+    public void setFeedType(final FeedType feedType) {
         this.feedType = feedType;
     }
 
@@ -71,7 +71,7 @@ public class WebFeed extends Feed {
         return this.lastUpdateAttempt;
     }
 
-    public void setLastUpdateAttempt(Date lastUpdateAttempt) {
+    public void setLastUpdateAttempt(final Date lastUpdateAttempt) {
         this.lastUpdateAttempt = lastUpdateAttempt;
     }
 
@@ -79,7 +79,7 @@ public class WebFeed extends Feed {
         return this.lastUpdateSuccess;
     }
 
-    public void setLastUpdateSuccess(Date lastUpdateSuccess) {
+    public void setLastUpdateSuccess(final Date lastUpdateSuccess) {
         this.lastUpdateSuccess = lastUpdateSuccess;
     }
 
@@ -87,7 +87,7 @@ public class WebFeed extends Feed {
         return this.lastUpdateFailure;
     }
 
-    public void setLastUpdateFailure(Date lastUpdateFailure) {
+    public void setLastUpdateFailure(final Date lastUpdateFailure) {
         this.lastUpdateFailure = lastUpdateFailure;
     }
 
@@ -95,7 +95,7 @@ public class WebFeed extends Feed {
         return this.lastFailureReason;
     }
 
-    public void setLastFailureReason(String lastFailureReason) {
+    public void setLastFailureReason(final String lastFailureReason) {
         this.lastFailureReason = lastFailureReason;
     }
 
@@ -103,16 +103,16 @@ public class WebFeed extends Feed {
         return this.cronExpression;
     }
 
-    public void setCronExpression(String cronExpression) {
+    public void setCronExpression(final String cronExpression) {
         this.cronExpression = cronExpression;
     }
 
-    public void addFeeditem(FeedItem item) {
+    public void addFeeditem(final FeedItem item) {
         item.setParent(this);
         this.feeditems.add(item);
     }
 
-    public void removeFeeditem(FeedItem item) {
+    public void removeFeeditem(final FeedItem item) {
         this.feeditems.remove(item);
         item.setParent(null);
     }
@@ -130,7 +130,7 @@ public class WebFeed extends Feed {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

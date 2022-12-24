@@ -28,12 +28,15 @@ public abstract class Feed implements Serializable {
     @ManyToOne
     @JoinColumn(name = "parent_id", nullable = true, insertable = true, updatable = false)
     private GroupFeed parent;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false, insertable = true, updatable = false)
+    private User user;
 
     public Long getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -41,7 +44,7 @@ public abstract class Feed implements Serializable {
         return this.title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
@@ -49,11 +52,11 @@ public abstract class Feed implements Serializable {
         return this.description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
-    public void setParent(GroupFeed parent) {
+    public void setParent(final GroupFeed parent) {
         this.parent = parent;
     }
 
@@ -61,13 +64,21 @@ public abstract class Feed implements Serializable {
         return this.parent;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.title);
+    public void setUser(final User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return this.user;
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public int hashCode() {
+        return Objects.hash(this.id, this.parent, this.title, this.user);
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -75,7 +86,7 @@ public abstract class Feed implements Serializable {
             return false;
         }
         final Feed other = (Feed) obj;
-        return Objects.equals(this.title, other.title);
+        return Objects.equals(this.id, other.id) && Objects.equals(this.parent, other.parent) && Objects.equals(this.title, other.title) && Objects.equals(this.user, other.user);
     }
 
 }

@@ -13,7 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity()
+@Entity
 @Table(name = "feed_item")
 public class FeedItem implements Serializable {
 
@@ -25,8 +25,11 @@ public class FeedItem implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "parent_id", insertable = true, updatable = false)
+    @JoinColumn(name = "parent_id", nullable = false, insertable = true, updatable = false)
     private WebFeed parent;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false, insertable = true, updatable = false)
+    private User user;
     @Column(name = "link_url", nullable = false, length = 255)
     private String linkUrl;
     @Column(name = "title", nullable = false, length = 100)
@@ -44,7 +47,7 @@ public class FeedItem implements Serializable {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -52,7 +55,7 @@ public class FeedItem implements Serializable {
         return this.parent;
     }
 
-    public void setParent(WebFeed parent) {
+    public void setParent(final WebFeed parent) {
         this.parent = parent;
     }
 
@@ -60,7 +63,7 @@ public class FeedItem implements Serializable {
         return this.linkUrl;
     }
 
-    public void setLinkUrl(String linkUrl) {
+    public void setLinkUrl(final String linkUrl) {
         this.linkUrl = linkUrl;
     }
 
@@ -68,7 +71,7 @@ public class FeedItem implements Serializable {
         return this.title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
@@ -76,7 +79,7 @@ public class FeedItem implements Serializable {
         return this.pubDate;
     }
 
-    public void setPubDate(String pubDate) {
+    public void setPubDate(final String pubDate) {
         this.pubDate = pubDate;
     }
 
@@ -84,7 +87,7 @@ public class FeedItem implements Serializable {
         return this.description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -92,11 +95,11 @@ public class FeedItem implements Serializable {
         return this.viewed;
     }
 
-    public void setViewed(boolean viewed) {
+    public void setViewed(final boolean viewed) {
         this.viewed = viewed;
     }
 
-    public void setReceived(Date received) {
+    public void setReceived(final Date received) {
         this.received = received;
     }
 
@@ -110,7 +113,7 @@ public class FeedItem implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
