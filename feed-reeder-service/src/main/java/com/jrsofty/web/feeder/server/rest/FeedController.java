@@ -5,6 +5,7 @@ import java.util.TreeSet;
 
 import javax.transaction.Transactional;
 
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jrsofty.web.feeder.business.FeedBusiness;
+import com.jrsofty.web.feeder.commons.logging.LogUtil;
 import com.jrsofty.web.feeder.models.domain.tree.TreeItem;
 
 @Transactional
@@ -19,8 +21,14 @@ import com.jrsofty.web.feeder.models.domain.tree.TreeItem;
 @RequestMapping("/feed")
 public class FeedController {
 
+    private static Logger LOG = LogUtil.getLogger(FeedController.class);
+
     @Autowired
     FeedBusiness business;
+
+    public FeedController() {
+        FeedController.LOG.debug("Feed REST Endpoint Available");
+    }
 
     @GetMapping("/tree")
     public TreeSet<TreeItem> getFeedsAsTree() {
@@ -28,7 +36,7 @@ public class FeedController {
     }
 
     @GetMapping("/items/web/{id}")
-    public Set<TreeItem> getWebFeedItemsById(@PathVariable long id) {
+    public Set<TreeItem> getWebFeedItemsById(@PathVariable final long id) {
         return this.business.findFeedItemsByParentId(id);
     }
 
