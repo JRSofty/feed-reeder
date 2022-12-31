@@ -21,12 +21,13 @@ public class TreeItem implements Serializable {
     private HashSet<TreeItem> children = new HashSet<>();
     private TreeItemType itemType = TreeItemType.WEB_FEED;
     private final HashMap<String, String> properties = new HashMap<>();
+    private boolean newItems = false;
 
     public TreeItem() {
 
     }
 
-    public TreeItem(GroupFeed group) {
+    public TreeItem(final GroupFeed group) {
         this.itemType = TreeItemType.GROUP_FEED;
         this.id = group.getId();
         if (group.getParent() != null) {
@@ -35,7 +36,7 @@ public class TreeItem implements Serializable {
         this.title = group.getTitle();
     }
 
-    public TreeItem(WebFeed webFeed) {
+    public TreeItem(final WebFeed webFeed) {
         this.id = webFeed.getId();
         if (webFeed.getParent() != null) {
             this.parentId = webFeed.getParent().getId();
@@ -43,7 +44,7 @@ public class TreeItem implements Serializable {
         this.title = webFeed.getTitle();
     }
 
-    public TreeItem(FeedItem feedItem) {
+    public TreeItem(final FeedItem feedItem) {
         this.id = feedItem.getId();
         this.title = feedItem.getTitle();
         this.parentId = feedItem.getParent().getId();
@@ -54,7 +55,7 @@ public class TreeItem implements Serializable {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(final long id) {
         this.id = id;
     }
 
@@ -62,7 +63,7 @@ public class TreeItem implements Serializable {
         return this.parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(final Long parentId) {
         this.parentId = parentId;
     }
 
@@ -70,7 +71,7 @@ public class TreeItem implements Serializable {
         return this.title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
@@ -78,7 +79,7 @@ public class TreeItem implements Serializable {
         return this.children;
     }
 
-    public void setChildren(HashSet<TreeItem> children) {
+    public void setChildren(final HashSet<TreeItem> children) {
         this.children = children;
     }
 
@@ -86,20 +87,28 @@ public class TreeItem implements Serializable {
         return this.itemType;
     }
 
-    public void setItemType(TreeItemType itemType) {
+    public void setItemType(final TreeItemType itemType) {
         this.itemType = itemType;
     }
 
-    public void setProperty(String property, String value) {
+    public void setProperty(final String property, final String value) {
         this.properties.put(property, value);
     }
 
-    public boolean hasProperty(String property) {
+    public boolean hasProperty(final String property) {
         return this.properties.containsKey(property);
     }
 
-    public String getProperty(String property) {
+    public String getProperty(final String property) {
         return this.properties.get(property);
+    }
+
+    public boolean hasNewItems() {
+        return this.newItems;
+    }
+
+    public void setNewItems(final boolean newItems) {
+        this.newItems = newItems;
     }
 
     @Override
@@ -108,7 +117,7 @@ public class TreeItem implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

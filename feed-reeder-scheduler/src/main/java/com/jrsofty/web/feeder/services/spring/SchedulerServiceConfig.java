@@ -9,10 +9,12 @@ import org.quartz.CronTrigger;
 import org.quartz.Job;
 import org.quartz.JobDetail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
@@ -24,11 +26,15 @@ import com.jrsofty.web.feeder.models.domain.WebFeed;
 import com.jrsofty.web.feeder.services.scheduler.SchedulerService;
 
 @Configuration
+@PropertySource("file:${feeder.home}/conf/feeder.properties")
 @EnableScheduling
 public class SchedulerServiceConfig {
 
     @Autowired
     private ApplicationContext ctx;
+
+    @Value("${app.scheduler.threadpool}")
+    private String threadPoolSize;
 
     @Bean
     public SpringBeanJobFactory springBeanJobFactory() {
@@ -43,7 +49,7 @@ public class SchedulerServiceConfig {
 
         final Properties properties = new Properties();
         properties.setProperty("org.quartz.scheduler.instanceName", "feed-reeder-scheduler");
-        properties.setProperty("org.quartz.threadPool.threadCount", "5");
+        properties.setProperty("org.quartz.threadPool.threadCount", this.threadPoolSize);
         properties.setProperty("org.quartz.jobStore.class", "org.quartz.simpl.RAMJobStore");
 
         schedulerFactory.setOverwriteExistingJobs(true);
@@ -61,7 +67,7 @@ public class SchedulerServiceConfig {
         return (SchedulerService) this.ctx.getBean("SchedulerService");
     }
 
-    public static CronTriggerFactoryBean createCronTrigger(JobDetail job, String cronExpression, String triggerName) throws ParseException {
+    public static CronTriggerFactoryBean createCronTrigger(final JobDetail job, final String cronExpression, final String triggerName) throws ParseException {
         final Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
@@ -78,7 +84,7 @@ public class SchedulerServiceConfig {
 
     }
 
-    public static JobDetailFactoryBean createJobDetail(Class<? extends Job> jobClass, WebFeed feed) {
+    public static JobDetailFactoryBean createJobDetail(final Class<? extends Job> jobClass, final WebFeed feed) {
         final JobDetailFactoryBean factoryBean = new JobDetailFactoryBean();
         factoryBean.setJobClass(jobClass);
         factoryBean.setName(feed.getTitle());
