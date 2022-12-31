@@ -9,3 +9,5 @@ feed-reeder-persistence/SQL/Flyway/flyway.conf
 feed-reeder-home/init/init.properties2
 feed-reeder-persistence/SQL/Flyway/flyway.conf
 feed-reeder-persistence/SQL/Flyway/flyway.conf
+feed-reeder-webapp/src/main/webapp/resources/css/app.css
+feed-reeder-webapp/src/main/webapp/resources/css/app.css.map
