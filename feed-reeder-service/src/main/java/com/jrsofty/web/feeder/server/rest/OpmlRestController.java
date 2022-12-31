@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,19 +38,23 @@ public class OpmlRestController {
 
     @Transactional
     @PostMapping("/upload")
-    public StandardRestResponse uploadOPML(@RequestParam("file") MultipartFile file) {
-
+    public ResponseEntity<StandardRestResponse> uploadOPML(@RequestParam("file") final MultipartFile file) {
+        StandardRestResponse res = null;
         try {
             if (file == null) {
-                return new StandardRestResponse("Failed upload", 400);
+                res = new StandardRestResponse("Failed upload", 400);
             }
             this.business.uploadOpml(file.getBytes());
         } catch (JRSEngineException | IOException e) {
             OpmlRestController.LOGGER.error("Failure to process upload", e);
-            return new StandardRestResponse("Failed upload", 500);
+            res = new StandardRestResponse("Failed upload", 500);
         }
 
-        return new StandardRestResponse("Upload Successful", 200);
+        if (res == null) {
+            res = new StandardRestResponse("Upload Successful", 200);
+        }
+
+        return ResponseEntity.status(res.getStatus()).body(res);
 
     }
 
