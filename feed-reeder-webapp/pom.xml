@@ -10,7 +10,6 @@
 	<properties>
 		<start-class>com.jrsofty.web.FeedReederApp</start-class>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -26,27 +25,22 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
-		
 		<!-- This is needed for use with Probe.war -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-web</artifactId>
 			<scope>runtime</scope>
-		</dependency> 
-		
+		</dependency>
 		<dependency>
 			<groupId>com.jrsofty.web</groupId>
 			<artifactId>feed-reeder-service</artifactId>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -63,8 +57,25 @@
 					</archive>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>com.gitlab.haynes</groupId>
+				<artifactId>libsass-maven-plugin</artifactId>
+				<version>0.2.29</version>
+				<executions>
+					<execution>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration> 
+					<inputSyntax>scss</inputSyntax>
+					<inputPath>${basedir}/src/main/sass/</inputPath>
+					<outputPath>${basedir}/src/main/webapp/resources/css/</outputPath>
+					<sourceMapOutputPath>${basedir}/src/main/webapp/resources/css/</sourceMapOutputPath>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-
-
 </project>
