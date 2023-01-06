@@ -2,12 +2,12 @@ package com.jrsofty.web.feeder.persistence.dao.impl;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jrsofty.web.feeder.persistence.dao.GenericDAO;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 @Transactional
 public abstract class AbstractGenericDAO<T> implements GenericDAO<T> {
@@ -17,7 +17,7 @@ public abstract class AbstractGenericDAO<T> implements GenericDAO<T> {
 
     @Transactional
     @Override
-    public T store(T instance) {
+    public T store(final T instance) {
         return this.em.merge(instance);
     }
 

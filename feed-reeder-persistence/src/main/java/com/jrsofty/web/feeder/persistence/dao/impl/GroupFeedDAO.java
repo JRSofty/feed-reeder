@@ -3,27 +3,27 @@ package com.jrsofty.web.feeder.persistence.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.TypedQuery;
-
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jrsofty.web.feeder.models.domain.GroupFeed;
 import com.jrsofty.web.feeder.models.domain.tree.TreeItem;
 
+import jakarta.persistence.TypedQuery;
+
 @Repository("GroupFeed")
 @Transactional
 public class GroupFeedDAO extends AbstractGenericDAO<GroupFeed> {
     @Transactional
     @Override
-    public void delete(long id) {
+    public void delete(final long id) {
         final GroupFeed inst = this.em.find(GroupFeed.class, id);
         this.em.remove(inst);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public GroupFeed findById(long id) {
+    public GroupFeed findById(final long id) {
         return this.em.find(GroupFeed.class, id);
     }
 
@@ -35,13 +35,13 @@ public class GroupFeedDAO extends AbstractGenericDAO<GroupFeed> {
     }
 
     @Transactional(readOnly = true)
-    public TreeItem findAsTreeItem(long id) {
+    public TreeItem findAsTreeItem(final long id) {
         final GroupFeed feed = this.findById(id);
         return new TreeItem(feed);
     }
 
     @Transactional(readOnly = true)
-    public List<TreeItem> findChildTreeItems(long id) {
+    public List<TreeItem> findChildTreeItems(final long id) {
         final List<GroupFeed> feeds = this.findByParentId(id);
         final ArrayList<TreeItem> results = new ArrayList<>();
         for (final GroupFeed feed : feeds) {
@@ -52,7 +52,7 @@ public class GroupFeedDAO extends AbstractGenericDAO<GroupFeed> {
     }
 
     @Transactional(readOnly = true)
-    public List<GroupFeed> findByParentId(long id) {
+    public List<GroupFeed> findByParentId(final long id) {
         final TypedQuery<GroupFeed> query = this.em.createQuery("SELECT gf FROM GroupFeed gf WHERE gf.parent.id = :id", GroupFeed.class);
         query.setParameter("id", id);
         return query.getResultList();
@@ -60,7 +60,7 @@ public class GroupFeedDAO extends AbstractGenericDAO<GroupFeed> {
     }
 
     @Transactional(readOnly = true)
-    public GroupFeed findByNameAndParent(GroupFeed parent, String name) {
+    public GroupFeed findByNameAndParent(final GroupFeed parent, final String name) {
         TypedQuery<GroupFeed> query;
         if (parent == null) {
             query = this.em.createQuery("SELECT gf FROM GroupFeed gf WHERE gf.title = :name AND gf.parent IS NULL", GroupFeed.class);
@@ -75,7 +75,7 @@ public class GroupFeedDAO extends AbstractGenericDAO<GroupFeed> {
     }
 
     @Transactional(readOnly = true)
-    public boolean alreadyExists(GroupFeed feed) {
+    public boolean alreadyExists(final GroupFeed feed) {
         final TypedQuery<Long> query = this.em.createQuery("SELECT COUNT(gf) FROM GroupFeed gf WHERE gf.title = :title AND gf.parent = :parent", Long.class);
         query.setParameter("title", feed.getTitle());
         query.setParameter("parent", feed.getParent());

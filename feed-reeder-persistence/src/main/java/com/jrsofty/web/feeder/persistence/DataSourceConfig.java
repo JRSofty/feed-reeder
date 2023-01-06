@@ -1,9 +1,8 @@
 package com.jrsofty.web.feeder.persistence;
 
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-import org.hibernate.dialect.MariaDB103Dialect;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,18 +15,27 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.zaxxer.hikari.HikariDataSource;
 
+import jakarta.persistence.EntityManagerFactory;
+
 @Configuration
 @PropertySource("file:${feeder.home}/conf/feeder.properties")
 @EnableTransactionManagement
 public class DataSourceConfig {
+
+    @Value("${app.hikari.minIdle}")
+    int minIdle;
+    @Value("${app.hikari.maxPoolSize}")
+    int maxPoolSize;
+    @Value("${app.hibernate.dialect}")
+    String hibernateDialect;
 
     @Bean
     @ConfigurationProperties("app.datasource")
     public DataSource getDataSource() {
         final HikariDataSource datasource = new HikariDataSource();
 
-        datasource.setMinimumIdle(2);
-        datasource.setMaximumPoolSize(5);
+        datasource.setMinimumIdle(this.minIdle);
+        datasource.setMaximumPoolSize(this.maxPoolSize);
         return datasource;
 
     }
@@ -43,14 +51,14 @@ public class DataSourceConfig {
     }
 
     @Bean
-    public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
+    public JpaTransactionManager transactionManager(final EntityManagerFactory emf) {
         return new JpaTransactionManager(emf);
     }
 
     private JpaVendorAdapter getJpaAdapter() {
         final HibernateJpaVendorAdapter jpaAdapter = new HibernateJpaVendorAdapter();
         jpaAdapter.setShowSql(true);
-        jpaAdapter.setDatabasePlatform(MariaDB103Dialect.class.getName());
+        jpaAdapter.setDatabasePlatform(this.hibernateDialect);
         return jpaAdapter;
     }
 

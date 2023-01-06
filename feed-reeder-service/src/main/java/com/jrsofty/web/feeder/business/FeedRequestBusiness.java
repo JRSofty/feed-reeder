@@ -2,8 +2,6 @@ package com.jrsofty.web.feeder.business;
 
 import java.util.Date;
 
-import javax.transaction.Transactional;
-
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +20,8 @@ import com.jrsofty.web.feeder.models.xml.NodeNameFilter;
 import com.jrsofty.web.feeder.persistence.dao.impl.WebFeedDAO;
 import com.jrsofty.web.feeder.xml.engine.Engine;
 
+import jakarta.transaction.Transactional;
+
 @Component
 @Transactional
 public class FeedRequestBusiness implements FeedRequestInterface {
@@ -36,7 +36,7 @@ public class FeedRequestBusiness implements FeedRequestInterface {
 
     @Transactional
     @Override
-    public String getRequestFeedData(long id) {
+    public String getRequestFeedData(final long id) {
         FeedRequestBusiness.LOG.debug("Requesting feed data from id " + id);
         final WebFeed webFeed = this.webFeedDAO.findById(id);
         FeedRequestBusiness.LOG.debug("Feed name is: " + webFeed.getTitle());
@@ -56,7 +56,7 @@ public class FeedRequestBusiness implements FeedRequestInterface {
 
     @Transactional
     @Override
-    public void processFeedData(String data, long feedId) {
+    public void processFeedData(final String data, final long feedId) {
         FeedRequestBusiness.LOG.debug("Parsing data from feed response");
         final WebFeed feed = this.webFeedDAO.findById(feedId);
         try {

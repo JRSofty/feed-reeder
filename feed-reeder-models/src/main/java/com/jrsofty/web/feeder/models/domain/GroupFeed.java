@@ -3,12 +3,12 @@ package com.jrsofty.web.feeder.models.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "group_feed")
@@ -25,22 +25,22 @@ public class GroupFeed extends Feed {
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<WebFeed> childFeeds = new ArrayList<>();
 
-    public void addChildGroup(GroupFeed feed) {
+    public void addChildGroup(final GroupFeed feed) {
         this.childGroups.add(feed);
         feed.setParent(this);
     }
 
-    public void removeChildGroup(GroupFeed feed) {
+    public void removeChildGroup(final GroupFeed feed) {
         this.childGroups.remove(feed);
         feed.setParent(null);
     }
 
-    public void addChildFeed(WebFeed feed) {
+    public void addChildFeed(final WebFeed feed) {
         this.childFeeds.add(feed);
         feed.setParent(this);
     }
 
-    public void removeChildFeed(WebFeed feed) {
+    public void removeChildFeed(final WebFeed feed) {
         this.childFeeds.remove(feed);
         feed.setParent(null);
     }
@@ -62,7 +62,7 @@ public class GroupFeed extends Feed {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

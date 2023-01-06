@@ -2,12 +2,12 @@ package com.jrsofty.web.feeder.persistence.dao.impl;
 
 import java.util.List;
 
-import javax.persistence.TypedQuery;
-
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jrsofty.web.feeder.models.domain.User;
+
+import jakarta.persistence.TypedQuery;
 
 @Repository("User")
 @Transactional
