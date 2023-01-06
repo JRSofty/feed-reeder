@@ -43,10 +43,10 @@ public class FeedRequestBusiness implements FeedRequestInterface {
         final String url = webFeed.getFeedUrl();
         final ResponseEntity<String> response = this.restClient.getForEntity(url, String.class);
         webFeed.setLastUpdateAttempt(new Date());
-        if (response.getStatusCodeValue() != 200) {
-            FeedRequestBusiness.LOG.error(String.format("Errored Response code %s from url %s. Could not get data returning empty", response.getStatusCodeValue(), url));
+        if (!response.getStatusCode().is2xxSuccessful()) {
+            FeedRequestBusiness.LOG.error(String.format("Errored Response code %s from url %s. Could not get data returning empty", response.getStatusCode().value(), url));
             webFeed.setLastUpdateFailure(new Date());
-            webFeed.setLastFailureReason(String.format("HTTP STATUS: %s", response.getStatusCodeValue()));
+            webFeed.setLastFailureReason(String.format("HTTP STATUS: %s", response.getStatusCode().value()));
             return "";
         }
         this.webFeedDAO.store(webFeed);
