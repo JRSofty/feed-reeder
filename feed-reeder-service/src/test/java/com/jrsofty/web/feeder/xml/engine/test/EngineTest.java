@@ -2,7 +2,6 @@ package com.jrsofty.web.feeder.xml.engine.test;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -33,7 +32,6 @@ class EngineTest {
         final Document doc = this.engine.generateDocumentFromByte(xmlToParse.getBytes());
         final NodeIterator itr = this.engine.filterDocument(doc, new NodeNameFilter("item"));
         Element current = null;
-        final SimpleDateFormat sdf = new SimpleDateFormat();
         int cnt = 0;
         final HashSet<FeedItem> items = new HashSet<>();
         while ((current = (Element) itr.nextNode()) != null) {
