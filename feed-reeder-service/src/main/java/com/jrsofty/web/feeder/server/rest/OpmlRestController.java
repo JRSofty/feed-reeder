@@ -30,14 +30,9 @@ public class OpmlRestController {
         OpmlRestController.LOGGER.debug("Opml RESTful Endpoint available");
     }
 
-    // @GetMapping("")
-    // public StandardRestResponse opmlAvailable() {
-    // return new StandardRestResponse("Available", 200);
-    // }
-
     @Transactional
     @PostMapping("/upload")
-    public StandardRestResponse uploadOPML(@RequestParam("file") MultipartFile file) {
+    public StandardRestResponse uploadOPML(@RequestParam("file") final MultipartFile file) {
 
         try {
             if (file == null) {
