@@ -5,6 +5,7 @@ import java.util.TreeSet;
 
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jrsofty.web.feeder.business.FeedBusiness;
 import com.jrsofty.web.feeder.commons.logging.LogUtil;
 import com.jrsofty.web.feeder.models.domain.tree.TreeItem;
-
-import jakarta.transaction.Transactional;
 
 @Transactional
 @RestController

@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -19,8 +20,6 @@ import com.jrsofty.web.feeder.models.job.FeedRequestInterface;
 import com.jrsofty.web.feeder.models.xml.NodeNameFilter;
 import com.jrsofty.web.feeder.persistence.dao.impl.WebFeedDAO;
 import com.jrsofty.web.feeder.xml.engine.Engine;
-
-import jakarta.transaction.Transactional;
 
 @Component
 @Transactional

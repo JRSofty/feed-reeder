@@ -3,13 +3,13 @@ package com.jrsofty.web.feeder.persistence.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jrsofty.web.feeder.models.domain.WebFeed;
 import com.jrsofty.web.feeder.models.domain.tree.TreeItem;
-
-import jakarta.persistence.TypedQuery;
 
 @Repository("WebFeed")
 @Transactional

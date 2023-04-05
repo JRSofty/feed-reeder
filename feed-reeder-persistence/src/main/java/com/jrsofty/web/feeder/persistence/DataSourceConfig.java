@@ -1,5 +1,6 @@
 package com.jrsofty.web.feeder.persistence;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -14,8 +15,6 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.zaxxer.hikari.HikariDataSource;
-
-import jakarta.persistence.EntityManagerFactory;
 
 @Configuration
 @PropertySource("file:${feeder.home}/conf/feeder.properties")
